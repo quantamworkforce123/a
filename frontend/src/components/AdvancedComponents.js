@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ALL_NODE_DEFINITIONS as NODE_DEFINITIONS, 
-  NODE_CATEGORIES, 
-  getAllTriggerNodes, 
-  getAllRegularNodes,
-  createNodeInstance 
-} from '../AllNodeDefinitions';
+  ALL_N8N_NODES as NODE_DEFINITIONS, 
+  COMPLETE_NODE_CATEGORIES as NODE_CATEGORIES, 
+  getAllCompleteTriggerNodes, 
+  createCompleteNodeInstance 
+} from '../CompleteN8NNodes';
 import { WorkflowEngine } from '../WorkflowEngine';
 import { 
   Play, 
