@@ -215,7 +215,7 @@ function WorkflowEditor() {
 
             {isExecuting && (
               <button
-                onClick={() => {/* Stop execution logic */}}
+                onClick={handleStopExecution}
                 className="flex items-center space-x-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md font-medium transition-colors"
               >
                 <Square className="w-4 h-4" />
