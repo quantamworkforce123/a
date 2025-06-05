@@ -11,7 +11,7 @@ import {
 } from '../components';
 import { EnhancedSidebar as AdvancedSidebar, EnhancedWorkflowCanvas as AdvancedCanvas, EnhancedPropertiesPanel as AdvancedPropertiesPanel } from '../components/AdvancedComponents';
 import { useWorkflow } from '../WorkflowContext';
-import { createNodeInstance } from '../NodeDefinitions';
+import { createNodeInstance } from '../AllNodeDefinitions';
 import { 
   Play, 
   Pause, 
