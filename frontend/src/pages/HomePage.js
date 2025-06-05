@@ -388,7 +388,7 @@ function HomePage() {
               Ready to automate your workflows?
             </h2>
             <p className="text-xl text-gray-300 mb-8">
-              Join thousands of teams already automating their processes with n8n
+              Join thousands of teams already automating their processes with Quantamworkforce
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
