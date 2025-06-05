@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer, useCallback, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { WorkflowEngine } from './WorkflowEngine';
-import { createNodeInstance } from './NodeDefinitions';
+import { createNodeInstance } from './AllNodeDefinitions';
 import { useAuth } from './AuthContext';
 
 const WorkflowContext = createContext();
