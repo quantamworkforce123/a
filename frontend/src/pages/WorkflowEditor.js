@@ -47,6 +47,7 @@ function WorkflowEditor() {
     addConnection,
     deleteConnection,
     executeWorkflow,
+    stopExecution,
     isExecuting,
     executionStatus,
     executionLogs
@@ -54,6 +55,7 @@ function WorkflowEditor() {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [isPropertiesPanelOpen, setIsPropertiesPanelOpen] = useState(true);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [canvasZoom, setCanvasZoom] = useState(1);
   const [currentPage, setCurrentPage] = useState('editor');
@@ -97,17 +99,8 @@ function WorkflowEditor() {
     }
   };
 
-  const handleAddNode = (nodeType) => {
-    const newNode = {
-      id: uuidv4(),
-      type: nodeType.type,
-      position: { x: 200 + Math.random() * 200, y: 150 + Math.random() * 200 },
-      data: { 
-        label: nodeType.label,
-        config: {}
-      }
-    };
-    addNode(newNode);
+  const handleAddNode = (nodeInstance) => {
+    addNode(nodeInstance);
   };
 
   const handleNodeSelect = (nodeId) => {
@@ -122,18 +115,17 @@ function WorkflowEditor() {
     deleteNode(nodeId);
   };
 
-  const handleAddConnection = (sourceId, targetId) => {
-    const newConnection = {
-      id: uuidv4(),
-      source: sourceId,
-      target: targetId
-    };
-    addConnection(newConnection);
+  const handleAddConnection = (connection) => {
+    addConnection(connection);
   };
 
   const handleExecuteWorkflow = async () => {
     if (!currentWorkflow || isExecuting) return;
     await executeWorkflow();
+  };
+
+  const handleStopExecution = () => {
+    stopExecution();
   };
 
   const handleSaveWorkflow = () => {
@@ -164,17 +156,6 @@ function WorkflowEditor() {
   const selectedNodeData = selectedNode 
     ? currentWorkflow?.nodes.find(n => n.id === selectedNode)
     : null;
-
-  const canvasControls = [
-    { icon: ZoomIn, label: 'Zoom In', action: () => setCanvasZoom(Math.min(canvasZoom * 1.2, 3)) },
-    { icon: ZoomOut, label: 'Zoom Out', action: () => setCanvasZoom(Math.max(canvasZoom / 1.2, 0.3)) },
-    { icon: RotateCcw, label: 'Reset View', action: () => setCanvasZoom(1) },
-    { 
-      icon: isFullscreen ? Minimize2 : Maximize2, 
-      label: isFullscreen ? 'Exit Fullscreen' : 'Fullscreen', 
-      action: () => setIsFullscreen(!isFullscreen) 
-    }
-  ];
 
   return (
     <div className={`h-screen bg-gray-900 flex flex-col ${isFullscreen ? 'fixed inset-0 z-50' : ''}`}>
