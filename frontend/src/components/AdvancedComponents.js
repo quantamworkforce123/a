@@ -4,6 +4,7 @@ import {
   ALL_N8N_NODES as NODE_DEFINITIONS, 
   COMPLETE_NODE_CATEGORIES as NODE_CATEGORIES, 
   getAllCompleteTriggerNodes, 
+  getCompleteNodesByCategory,
   createCompleteNodeInstance 
 } from '../CompleteN8NNodes';
 import { WorkflowEngine } from '../WorkflowEngine';
