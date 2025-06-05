@@ -288,7 +288,7 @@ function WorkflowEditor() {
       {/* Main Editor */}
       <div className="flex-1 flex overflow-hidden">
         {/* Enhanced Sidebar */}
-        <AdvancedSidebar
+        <EnhancedSidebar
           onAddNode={handleAddNode}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
@@ -296,8 +296,8 @@ function WorkflowEditor() {
           onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
 
-        {/* Enhanced Canvas */}
-        <AdvancedCanvas
+        {/* Real Canvas with Working Connections */}
+        <RealWorkflowCanvas
           workflow={currentWorkflow}
           selectedNode={selectedNode}
           onSelectNode={handleNodeSelect}
@@ -310,7 +310,7 @@ function WorkflowEditor() {
           setCanvasZoom={setCanvasZoom}
         />
 
-        {/* Enhanced Properties Panel */}
+        {/* Real Properties Panel with Webhook URLs */}
         {isPropertiesPanelOpen && (
           <motion.div
             initial={{ x: 384 }}
@@ -318,7 +318,7 @@ function WorkflowEditor() {
             exit={{ x: 384 }}
             transition={{ duration: 0.3 }}
           >
-            <AdvancedPropertiesPanel
+            <RealPropertiesPanel
               selectedNode={selectedNodeData}
               onUpdateNode={handleNodeUpdate}
               onDeleteNode={handleNodeDelete}
