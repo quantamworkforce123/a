@@ -3,10 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { v4 as uuidv4 } from 'uuid';
 import { 
-  EnhancedSidebar, 
   ExecutionLogs, 
   Header 
 } from '../components';
+import { EnhancedSidebar } from '../components/AdvancedComponents';
 import { RealWorkflowCanvas } from '../components/RealWorkflowCanvas';
 import { RealPropertiesPanel } from '../components/RealPropertiesPanel';
 import { useEnhancedWorkflow } from '../EnhancedWorkflowContext';
