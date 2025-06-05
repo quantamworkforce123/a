@@ -3,13 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { v4 as uuidv4 } from 'uuid';
 import { 
-  Sidebar, 
-  PropertiesPanel, 
-  WorkflowCanvas, 
+  EnhancedSidebar, 
+  EnhancedWorkflowCanvas, 
+  EnhancedPropertiesPanel,
   ExecutionLogs, 
   Header 
 } from '../components';
+import { EnhancedSidebar as AdvancedSidebar, EnhancedWorkflowCanvas as AdvancedCanvas, EnhancedPropertiesPanel as AdvancedPropertiesPanel } from '../components/AdvancedComponents';
 import { useWorkflow } from '../WorkflowContext';
+import { createNodeInstance } from '../NodeDefinitions';
 import { 
   Play, 
   Pause, 
@@ -25,7 +27,9 @@ import {
   Minimize2,
   ZoomIn,
   ZoomOut,
-  RotateCcw
+  RotateCcw,
+  Menu,
+  X
 } from 'lucide-react';
 
 function WorkflowEditor() {
