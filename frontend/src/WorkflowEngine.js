@@ -1,6 +1,6 @@
 // Advanced workflow execution engine that simulates real N8N workflow processing
 
-import { NODE_DEFINITIONS } from './NodeDefinitions';
+import { ALL_NODE_DEFINITIONS as NODE_DEFINITIONS } from './AllNodeDefinitions';
 
 export class WorkflowEngine {
   constructor() {
