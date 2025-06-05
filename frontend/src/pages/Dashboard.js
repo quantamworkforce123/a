@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Header, WorkflowCard, CreateWorkflowModal } from '../components';
-import { useWorkflow } from '../WorkflowContext';
+import { useEnhancedWorkflow } from '../EnhancedWorkflowContext';
 import { 
   Plus, 
   Search, 
