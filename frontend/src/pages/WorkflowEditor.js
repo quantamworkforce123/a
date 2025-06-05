@@ -4,14 +4,13 @@ import { motion } from 'framer-motion';
 import { v4 as uuidv4 } from 'uuid';
 import { 
   EnhancedSidebar, 
-  EnhancedWorkflowCanvas, 
-  EnhancedPropertiesPanel,
   ExecutionLogs, 
   Header 
 } from '../components';
-import { EnhancedSidebar as AdvancedSidebar, EnhancedWorkflowCanvas as AdvancedCanvas, EnhancedPropertiesPanel as AdvancedPropertiesPanel } from '../components/AdvancedComponents';
+import { RealWorkflowCanvas } from '../components/RealWorkflowCanvas';
+import { RealPropertiesPanel } from '../components/RealPropertiesPanel';
 import { useEnhancedWorkflow } from '../EnhancedWorkflowContext';
-import { createNodeInstance } from '../AllNodeDefinitions';
+import { createCompleteNodeInstance } from '../CompleteN8NNodes';
 import { 
   Play, 
   Pause, 
