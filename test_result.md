@@ -107,39 +107,48 @@ user_problem_statement: "Test the complete N8N workflow automation clone that I 
 backend:
   - task: "Root API Endpoint"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "testing"
         - comment: "Initial testing of the root API endpoint (/api/)"
+        - working: true
+        - agent: "testing"
+        - comment: "Root API endpoint (/api/) is working correctly. Returns 'Hello World' message with 200 status code."
 
   - task: "Status Check Creation API"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "testing"
         - comment: "Initial testing of the status check creation API (/api/status POST)"
+        - working: true
+        - agent: "testing"
+        - comment: "Status Check Creation API (/api/status POST) is working correctly. Successfully creates a status check with client_name and returns the created object with id and timestamp."
 
   - task: "Status Check Retrieval API"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "testing"
         - comment: "Initial testing of the status check retrieval API (/api/status GET)"
+        - working: true
+        - agent: "testing"
+        - comment: "Status Check Retrieval API (/api/status GET) is working correctly. Successfully retrieves all status checks from the database."
 
 frontend:
   - task: "Homepage"
