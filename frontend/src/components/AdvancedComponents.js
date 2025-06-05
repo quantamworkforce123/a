@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  NODE_DEFINITIONS, 
+  ALL_NODE_DEFINITIONS as NODE_DEFINITIONS, 
   NODE_CATEGORIES, 
   getAllTriggerNodes, 
   getAllRegularNodes,
   createNodeInstance 
-} from '../NodeDefinitions';
+} from '../AllNodeDefinitions';
 import { WorkflowEngine } from '../WorkflowEngine';
 import { 
   Play, 
