@@ -79,7 +79,7 @@ export function EnhancedSidebar({ onAddNode, searchTerm, setSearchTerm, isCollap
   }, {});
 
   const handleNodeClick = (node) => {
-    const nodeInstance = createNodeInstance(node.type);
+    const nodeInstance = createCompleteNodeInstance(node.type);
     onAddNode(nodeInstance);
   };
 
