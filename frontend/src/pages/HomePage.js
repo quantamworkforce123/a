@@ -102,10 +102,10 @@ function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              Flexible AI workflow automation
+              Enterprise AI workflow automation
               <br />
               <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
-                for technical teams
+                for modern teams
               </span>
             </motion.h1>
             
@@ -115,9 +115,9 @@ function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Build with the precision of code or the speed of drag-n-drop. Hard
-              fork flexibility vs speed convenience. You choose how
-              you create custom business workflows.
+              Build sophisticated automation workflows with the precision of code or the 
+              speed of visual design. Quantamworkforce gives you complete control over 
+              your business processes with enterprise-grade reliability.
             </motion.p>
 
             <motion.div
