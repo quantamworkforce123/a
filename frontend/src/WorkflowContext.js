@@ -272,6 +272,7 @@ function workflowReducer(state, action) {
 // Provider component
 export function WorkflowProvider({ children }) {
   const [state, dispatch] = useReducer(workflowReducer, initialState);
+  const workflowEngine = new WorkflowEngine();
 
   // Actions
   const setCurrentWorkflow = useCallback((workflow) => {
@@ -291,6 +292,10 @@ export function WorkflowProvider({ children }) {
   }, []);
 
   const addNode = useCallback((node) => {
+    // Ensure the node has a unique position if not specified
+    if (!node.position) {
+      node.position = { x: 200 + Math.random() * 300, y: 150 + Math.random() * 200 };
+    }
     dispatch({ type: ACTIONS.ADD_NODE, payload: node });
   }, []);
 
@@ -320,20 +325,51 @@ export function WorkflowProvider({ children }) {
     dispatch({ type: ACTIONS.START_EXECUTION });
     dispatch({ type: ACTIONS.CLEAR_EXECUTION_LOGS });
 
-    const { nodes, connections } = state.currentWorkflow;
-    
-    // Find trigger nodes (nodes with no incoming connections)
-    const triggerNodes = nodes.filter(node => 
-      !connections.some(conn => conn.target === node.id)
-    );
+    const onStatusUpdate = (nodeId, status) => {
+      dispatch({
+        type: ACTIONS.UPDATE_EXECUTION_STATUS,
+        payload: { nodeId, status }
+      });
+    };
 
-    // Execute workflow starting from trigger nodes
-    for (const triggerNode of triggerNodes) {
-      await executeNodeChain(triggerNode.id, nodes, connections, dispatch);
+    const onLogUpdate = (logEntry) => {
+      dispatch({
+        type: ACTIONS.ADD_EXECUTION_LOG,
+        payload: logEntry
+      });
+    };
+
+    try {
+      await workflowEngine.executeWorkflow(state.currentWorkflow, onStatusUpdate, onLogUpdate);
+      
+      // Add all logs from the engine
+      workflowEngine.executionLogs.forEach(log => {
+        dispatch({
+          type: ACTIONS.ADD_EXECUTION_LOG,
+          payload: log
+        });
+      });
+
+      dispatch({ type: ACTIONS.FINISH_EXECUTION });
+    } catch (error) {
+      dispatch({
+        type: ACTIONS.ADD_EXECUTION_LOG,
+        payload: {
+          id: `log_${Date.now()}`,
+          type: 'error',
+          source: 'Workflow',
+          message: `Execution failed: ${error.message}`,
+          timestamp: new Date().toISOString()
+        }
+      });
+      dispatch({ type: ACTIONS.FINISH_EXECUTION });
     }
-
-    dispatch({ type: ACTIONS.FINISH_EXECUTION });
   }, [state.currentWorkflow, state.isExecuting]);
+
+  const stopExecution = useCallback(() => {
+    workflowEngine.stopExecution();
+    dispatch({ type: ACTIONS.FINISH_EXECUTION });
+  }, []);
 
   const value = {
     ...state,
@@ -347,7 +383,9 @@ export function WorkflowProvider({ children }) {
     addConnection,
     deleteConnection,
     setSelectedNode,
-    executeWorkflow
+    executeWorkflow,
+    stopExecution,
+    workflowEngine
   };
 
   return (
