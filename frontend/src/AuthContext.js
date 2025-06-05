@@ -92,23 +92,36 @@ const mockApiCall = (endpoint, data) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (endpoint === 'login') {
-        if (data.email && data.password) {
+        // Require actual credentials - no auto-login
+        if (data.email === 'admin@quantamworkforce.com' && data.password === 'admin123') {
           resolve({
             user: {
               id: '1',
-              name: data.name || 'John Doe',
+              name: 'Admin User',
               email: data.email,
-              avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name || 'John Doe')}&background=ff7f4d&color=ffffff`,
+              avatar: `https://ui-avatars.com/api/?name=Admin+User&background=ff7f4d&color=ffffff`,
               role: 'admin',
               createdAt: new Date().toISOString()
             },
-            token: 'mock_jwt_token_' + Date.now()
+            token: 'qw_token_' + Date.now()
+          });
+        } else if (data.email && data.password && data.email.includes('@') && data.password.length >= 6) {
+          resolve({
+            user: {
+              id: Date.now().toString(),
+              name: data.name || data.email.split('@')[0],
+              email: data.email,
+              avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name || data.email.split('@')[0])}&background=ff7f4d&color=ffffff`,
+              role: 'user',
+              createdAt: new Date().toISOString()
+            },
+            token: 'qw_token_' + Date.now()
           });
         } else {
-          reject(new Error('Invalid credentials'));
+          reject(new Error('Invalid email or password. Please check your credentials.'));
         }
       } else if (endpoint === 'register') {
-        if (data.email && data.password && data.name) {
+        if (data.email && data.password && data.name && data.email.includes('@') && data.password.length >= 6) {
           resolve({
             user: {
               id: Date.now().toString(),
@@ -118,13 +131,13 @@ const mockApiCall = (endpoint, data) => {
               role: 'user',
               createdAt: new Date().toISOString()
             },
-            token: 'mock_jwt_token_' + Date.now()
+            token: 'qw_token_' + Date.now()
           });
         } else {
-          reject(new Error('All fields are required'));
+          reject(new Error('Please provide valid name, email, and password (minimum 6 characters).'));
         }
       }
-    }, 1000); // Simulate network delay
+    }, 1500); // Realistic network delay
   });
 };
 
