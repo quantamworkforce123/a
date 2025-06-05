@@ -10,7 +10,7 @@ import {
   Header 
 } from '../components';
 import { EnhancedSidebar as AdvancedSidebar, EnhancedWorkflowCanvas as AdvancedCanvas, EnhancedPropertiesPanel as AdvancedPropertiesPanel } from '../components/AdvancedComponents';
-import { useWorkflow } from '../WorkflowContext';
+import { useEnhancedWorkflow } from '../EnhancedWorkflowContext';
 import { createNodeInstance } from '../AllNodeDefinitions';
 import { 
   Play, 
