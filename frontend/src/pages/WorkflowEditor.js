@@ -51,7 +51,7 @@ function WorkflowEditor() {
     isExecuting,
     executionStatus,
     executionLogs
-  } = useWorkflow();
+  } = useEnhancedWorkflow();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [isPropertiesPanelOpen, setIsPropertiesPanelOpen] = useState(true);
