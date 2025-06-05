@@ -24,7 +24,7 @@ function Dashboard() {
     deleteWorkflow, 
     updateWorkflow, 
     setCurrentWorkflow 
-  } = useWorkflow();
+  } = useEnhancedWorkflow();
   
   const [currentPage, setCurrentPage] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
