@@ -283,57 +283,38 @@ function WorkflowEditor() {
 
       {/* Main Editor */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Sidebar */}
-        <Sidebar
+        {/* Enhanced Sidebar */}
+        <AdvancedSidebar
           onAddNode={handleAddNode}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
+          isCollapsed={isSidebarCollapsed}
+          onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
 
-        {/* Canvas Container */}
-        <div className="flex-1 relative">
-          {/* Canvas Controls */}
-          <div className="absolute top-4 right-4 z-10 flex flex-col space-y-2">
-            {canvasControls.map((control, index) => (
-              <motion.button
-                key={index}
-                onClick={control.action}
-                className="w-10 h-10 bg-gray-800 border border-gray-600 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:border-gray-500 transition-colors"
-                title={control.label}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <control.icon className="w-4 h-4" />
-              </motion.button>
-            ))}
-          </div>
+        {/* Enhanced Canvas */}
+        <AdvancedCanvas
+          workflow={currentWorkflow}
+          selectedNode={selectedNode}
+          onSelectNode={handleNodeSelect}
+          onUpdateNode={handleNodeUpdate}
+          onDeleteNode={handleNodeDelete}
+          onAddConnection={handleAddConnection}
+          onDeleteConnection={deleteConnection}
+          executionStatus={executionStatus}
+          canvasZoom={canvasZoom}
+          setCanvasZoom={setCanvasZoom}
+        />
 
-          {/* Canvas */}
-          <div 
-            className="h-full overflow-hidden"
-            style={{ transform: `scale(${canvasZoom})`, transformOrigin: 'center center' }}
-          >
-            <WorkflowCanvas
-              workflow={currentWorkflow}
-              selectedNode={selectedNode}
-              onSelectNode={handleNodeSelect}
-              onUpdateNode={handleNodeUpdate}
-              onAddConnection={handleAddConnection}
-              onDeleteConnection={deleteConnection}
-              executionStatus={executionStatus}
-            />
-          </div>
-        </div>
-
-        {/* Properties Panel */}
+        {/* Enhanced Properties Panel */}
         {isPropertiesPanelOpen && (
           <motion.div
-            initial={{ x: 320 }}
+            initial={{ x: 384 }}
             animate={{ x: 0 }}
-            exit={{ x: 320 }}
+            exit={{ x: 384 }}
             transition={{ duration: 0.3 }}
           >
-            <PropertiesPanel
+            <AdvancedPropertiesPanel
               selectedNode={selectedNodeData}
               onUpdateNode={handleNodeUpdate}
               onDeleteNode={handleNodeDelete}
