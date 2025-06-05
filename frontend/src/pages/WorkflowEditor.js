@@ -99,7 +99,12 @@ function WorkflowEditor() {
   };
 
   const handleAddNode = (nodeInstance) => {
-    addNode(nodeInstance);
+    // Create proper node instance using the complete definitions
+    const completeInstance = createCompleteNodeInstance(nodeInstance.type, {
+      x: 200 + Math.random() * 300,
+      y: 150 + Math.random() * 200
+    });
+    addNode(completeInstance);
   };
 
   const handleNodeSelect = (nodeId) => {
