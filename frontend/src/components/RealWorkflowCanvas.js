@@ -356,15 +356,15 @@ export function RealWorkflowCanvas({
           return (
             <motion.div
               key={node.id}
-              className={`absolute w-48 bg-gray-700 border-2 rounded-lg p-3 cursor-pointer select-none group ${
-                isSelected ? 'border-orange-500 shadow-lg shadow-orange-500/20' : 'border-gray-600 hover:border-gray-500'
-              } ${nodeStatus === 'executing' ? 'animate-pulse' : ''}`}
+              className={`absolute w-48 glass-card bg-gray-800/50 backdrop-blur-lg border-2 rounded-lg p-3 cursor-pointer select-none group transition-all duration-300 btn-3d ${
+                isSelected ? 'border-primary-500 shadow-glass-primary shadow-lg' : 'border-gray-600 hover:border-primary-400'
+              } ${nodeStatus === 'executing' ? 'animate-pulse pulse-glow' : ''}`}
               style={{ 
                 left: node.position.x, 
                 top: node.position.y,
                 borderColor: nodeStatus === 'success' ? '#10B981' : 
                            nodeStatus === 'error' ? '#EF4444' : 
-                           isSelected ? '#FF7F4D' : '#4B5563'
+                           isSelected ? '#ee6447' : '#4B5563'
               }}
               onMouseDown={(e) => handleMouseDown(e, node.id)}
               drag
