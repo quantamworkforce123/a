@@ -1,0 +1,317 @@
+/* Glassmorphism & 3D Animation System for N8N Clone */
+
+/* Glassmorphism Base Classes */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-primary {
+  background: rgba(238, 100, 71, 0.1);
+  border: 1px solid rgba(238, 100, 71, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(238, 100, 71, 0.2),
+    inset 0 1px 0 rgba(238, 100, 71, 0.3);
+}
+
+.glass-card-secondary {
+  background: rgba(98, 110, 255, 0.1);
+  border: 1px solid rgba(98, 110, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(98, 110, 255, 0.2),
+    inset 0 1px 0 rgba(98, 110, 255, 0.3);
+}
+
+/* 3D Button Effects (ClickUp Style) */
+.btn-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.btn-3d::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+  border-radius: inherit;
+  z-index: -1;
+  transition: all 0.2s ease;
+}
+
+.btn-3d:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 12px 24px rgba(0, 0, 0, 0.15),
+    0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-3d:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary-3d {
+  background: linear-gradient(145deg, #ee6447, #d94c2f);
+  color: white;
+  border: none;
+  box-shadow: 
+    0 6px 12px rgba(238, 100, 71, 0.3),
+    0 2px 4px rgba(238, 100, 71, 0.2);
+}
+
+.btn-secondary-3d {
+  background: linear-gradient(145deg, #626eff, #4c46f5);
+  color: white;
+  border: none;
+  box-shadow: 
+    0 6px 12px rgba(98, 110, 255, 0.3),
+    0 2px 4px rgba(98, 110, 255, 0.2);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(238, 100, 71, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(238, 100, 71, 0.6);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Slide-in Animations */
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  animation: slideInFromLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-in-right {
+  animation: slideInFromRight 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-in-bottom {
+  animation: slideInFromBottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card Hover Effects */
+.card-3d {
+  perspective: 1000px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-3d:hover {
+  transform: rotateX(5deg) rotateY(5deg) translateZ(20px);
+}
+
+.card-3d-content {
+  transform-style: preserve-3d;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Loading Shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 0px,
+    rgba(255, 255, 255, 0.3) 40px,
+    rgba(255, 255, 255, 0.1) 80px
+  );
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Glassmorphic Form Inputs */
+.glass-input {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: white;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: rgba(238, 100, 71, 0.5);
+  box-shadow: 
+    0 0 0 3px rgba(238, 100, 71, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Node Connection Animation */
+@keyframes connectionFlow {
+  0% {
+    stroke-dashoffset: 20;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.connection-animated {
+  stroke-dasharray: 5 5;
+  animation: connectionFlow 1s linear infinite;
+}
+
+/* Workflow Node 3D Effect */
+.workflow-node {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.workflow-node:hover {
+  transform: translateZ(10px) scale(1.05);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.2),
+    0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.workflow-node.selected {
+  box-shadow: 
+    0 0 0 3px rgba(238, 100, 71, 0.5),
+    0 20px 40px rgba(238, 100, 71, 0.3);
+}
+
+/* Success/Error States */
+.success-glow {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.error-glow {
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Backdrop Blur Utilities */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.backdrop-blur-lg {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.backdrop-blur-xl {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+/* Micro Interactions */
+.micro-bounce:hover {
+  animation: micro-bounce 0.3s ease-in-out;
+}
+
+@keyframes micro-bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.micro-rotate:hover {
+  transform: rotate(10deg);
+  transition: transform 0.2s ease;
+}
+
+/* Icon Animations */
+.icon-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
