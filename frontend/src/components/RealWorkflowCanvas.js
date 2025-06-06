@@ -1,10 +1,14 @@
-// Enhanced Canvas with Real Connection System
+// Enhanced Canvas with Real Connection System - Onion Pink/Blue Theme
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ALL_N8N_NODES } from '../CompleteN8NNodes';
+import { COMPLETE_2000_N8N_NODES } from '../Complete2000N8NNodes';
+import { ADDITIONAL_1500_NODES } from '../Additional1500N8NNodes';
 import { 
   X, Check, AlertCircle, ZoomIn, ZoomOut, RotateCcw, Move
 } from 'lucide-react';
+
+// Combine all node definitions
+const ALL_NODES = { ...COMPLETE_2000_N8N_NODES, ...ADDITIONAL_1500_NODES };
 
 export function RealWorkflowCanvas({ 
   workflow, 
