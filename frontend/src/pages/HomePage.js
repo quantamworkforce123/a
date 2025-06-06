@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Header } from '../components';
+import { Header } from '../components.js';
 import { 
   Play, 
   ArrowRight, 
