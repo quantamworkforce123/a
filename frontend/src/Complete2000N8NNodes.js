@@ -2,7 +2,7 @@
 // Based on real N8N nodes with comprehensive functionality
 
 // Helper function to create node definitions
-const createNodeDefinition = (config) => ({
+export const createNodeDefinition = (config) => ({
   displayName: config.displayName,
   name: config.name,
   group: config.group || ['input'],
