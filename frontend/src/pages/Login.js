@@ -278,10 +278,13 @@ function Login() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="form-input"
+                      className={`form-input ${formErrors.name ? 'border-red-500' : ''}`}
                       placeholder="Enter your full name"
                       required={!isLogin}
                     />
+                    {formErrors.name && (
+                      <p className="mt-1 text-sm text-red-400">{formErrors.name}</p>
+                    )}
                   </div>
                 )}
 
@@ -294,10 +297,13 @@ function Login() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="form-input"
+                    className={`form-input ${formErrors.email ? 'border-red-500' : ''}`}
                     placeholder="Enter your email"
                     required
                   />
+                  {formErrors.email && (
+                    <p className="mt-1 text-sm text-red-400">{formErrors.email}</p>
+                  )}
                 </div>
 
                 <div>
@@ -310,7 +316,7 @@ function Login() {
                       name="password"
                       value={formData.password}
                       onChange={handleInputChange}
-                      className="form-input pr-10"
+                      className={`form-input pr-10 ${formErrors.password ? 'border-red-500' : ''}`}
                       placeholder="Enter your password"
                       required
                     />
@@ -326,6 +332,9 @@ function Login() {
                       )}
                     </button>
                   </div>
+                  {formErrors.password && (
+                    <p className="mt-1 text-sm text-red-400">{formErrors.password}</p>
+                  )}
                 </div>
 
                 {!isLogin && (
@@ -338,10 +347,13 @@ function Login() {
                       name="confirmPassword"
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
-                      className="form-input"
+                      className={`form-input ${formErrors.confirmPassword ? 'border-red-500' : ''}`}
                       placeholder="Confirm your password"
                       required={!isLogin}
                     />
+                    {formErrors.confirmPassword && (
+                      <p className="mt-1 text-sm text-red-400">{formErrors.confirmPassword}</p>
+                    )}
                   </div>
                 )}
 
