@@ -304,22 +304,22 @@ export function RealWorkflowCanvas({
             <g key={connection.id}>
               <path
                 d={pathData}
-                stroke={isExecuting ? '#3B82F6' : isSelected ? '#FF7F4D' : '#6B7280'}
+                stroke={isExecuting ? '#626eff' : isSelected ? '#ee6447' : '#6B7280'}
                 strokeWidth={isExecuting ? 3 : isSelected ? 2.5 : 2}
                 fill="none"
                 markerEnd={`url(#arrowhead${isExecuting ? '-executing' : isSelected ? '-active' : ''})`}
                 strokeDasharray={isExecuting ? "5,5" : "none"}
-                className={`transition-all duration-200 ${isExecuting ? 'animate-pulse' : ''}`}
+                className={`transition-all duration-200 ${isExecuting ? 'connection-animated' : ''}`}
                 style={{ pointerEvents: 'stroke', strokeWidth: '12px', stroke: 'transparent' }}
               />
               <path
                 d={pathData}
-                stroke={isExecuting ? '#3B82F6' : isSelected ? '#FF7F4D' : '#6B7280'}
+                stroke={isExecuting ? '#626eff' : isSelected ? '#ee6447' : '#6B7280'}
                 strokeWidth={isExecuting ? 3 : isSelected ? 2.5 : 2}
                 fill="none"
                 markerEnd={`url(#arrowhead${isExecuting ? '-executing' : isSelected ? '-active' : ''})`}
                 strokeDasharray={isExecuting ? "5,5" : "none"}
-                className={`transition-all duration-200 ${isExecuting ? 'animate-pulse' : ''} cursor-pointer hover:stroke-red-400`}
+                className={`transition-all duration-200 ${isExecuting ? 'connection-animated' : ''} cursor-pointer hover:stroke-red-400`}
                 onClick={(e) => handleConnectionDelete(connection.id, e)}
                 style={{ pointerEvents: 'stroke' }}
               />
