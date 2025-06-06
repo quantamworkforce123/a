@@ -10,6 +10,7 @@ import { EnhancedSidebar } from '../components/AdvancedComponents';
 import { RealWorkflowCanvas } from '../components/RealWorkflowCanvas';
 import { RealPropertiesPanel } from '../components/RealPropertiesPanel';
 import { useEnhancedWorkflow } from '../EnhancedWorkflowContext';
+import { useAuth } from '../AuthContext';
 import { createCompleteNodeInstance } from '../CompleteN8NNodes';
 import { 
   Play, 
