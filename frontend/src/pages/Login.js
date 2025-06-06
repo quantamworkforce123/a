@@ -412,7 +412,7 @@ function Login() {
                   {isLogin ? "Don't have an account? " : "Already have an account? "}
                 </span>
                 <button
-                  onClick={() => setIsLogin(!isLogin)}
+                  onClick={handleModeSwitch}
                   className="font-medium text-orange-400 hover:text-orange-300 transition-colors"
                 >
                   {isLogin ? 'Sign up' : 'Sign in'}
