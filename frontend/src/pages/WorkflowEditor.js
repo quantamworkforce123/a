@@ -166,7 +166,7 @@ function WorkflowEditor() {
   return (
     <div className={`h-screen bg-gray-900 flex flex-col ${isFullscreen ? 'fixed inset-0 z-50' : ''}`}>
       {!isFullscreen && (
-        <Header currentPage={currentPage} onNavigate={handleNavigate} user={{ name: 'John Doe' }} />
+        <Header currentPage={currentPage} onNavigate={handleNavigate} user={user} />
       )}
       
       {/* Toolbar */}
