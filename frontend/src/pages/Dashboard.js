@@ -19,6 +19,7 @@ import {
 
 function Dashboard() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { 
     workflows, 
     createWorkflow, 
