@@ -351,17 +351,23 @@ export function EnhancedWorkflowProvider({ children }) {
   // Load workflows when user is authenticated
   useEffect(() => {
     if (isAuthenticated && user) {
-      dispatch({ type: ACTIONS.SET_LOADING, payload: true });
-      
-      // Simulate API call
-      setTimeout(() => {
-        const mockWorkflows = createMockWorkflows(user.id);
-        dispatch({ type: ACTIONS.LOAD_WORKFLOWS, payload: mockWorkflows });
-      }, 1000);
+      loadWorkflows();
     } else {
       dispatch({ type: ACTIONS.LOAD_WORKFLOWS, payload: [] });
     }
   }, [isAuthenticated, user]);
+
+  const loadWorkflows = async () => {
+    dispatch({ type: ACTIONS.SET_LOADING, payload: true });
+    
+    try {
+      const workflows = await workflowsAPI.getAll();
+      dispatch({ type: ACTIONS.LOAD_WORKFLOWS, payload: workflows });
+    } catch (error) {
+      console.error('Error loading workflows:', error);
+      dispatch({ type: ACTIONS.SET_ERROR, payload: error.message });
+    }
+  };
 
   // Auto-save workflow changes
   useEffect(() => {
