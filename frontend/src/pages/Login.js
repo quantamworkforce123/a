@@ -208,7 +208,7 @@ function Login() {
             <div className="bg-gray-800 border border-gray-700 rounded-2xl p-8 shadow-2xl">
               <div className="text-center mb-8">
                 <h2 className="text-2xl font-bold text-white mb-2">
-                  {isLogin ? 'Sign in to n8n' : 'Create your account'}
+                  {isLogin ? 'Sign in to Quantamworkforce' : 'Create your account'}
                 </h2>
                 <p className="text-gray-400">
                   {isLogin 
@@ -217,6 +217,32 @@ function Login() {
                   }
                 </p>
               </div>
+
+              {/* Success Message */}
+              {showSuccess && (
+                <motion.div
+                  className="mb-6 bg-green-500/10 border border-green-500/20 rounded-lg p-4 flex items-center space-x-3"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <CheckCircle className="w-5 h-5 text-green-400" />
+                  <span className="text-green-400">
+                    {isLogin ? 'Login successful! Redirecting...' : 'Account created successfully! Redirecting...'}
+                  </span>
+                </motion.div>
+              )}
+
+              {/* Error Message */}
+              {error && (
+                <motion.div
+                  className="mb-6 bg-red-500/10 border border-red-500/20 rounded-lg p-4 flex items-center space-x-3"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <AlertCircle className="w-5 h-5 text-red-400" />
+                  <span className="text-red-400">{error}</span>
+                </motion.div>
+              )}
 
               {/* OAuth Buttons */}
               <div className="space-y-3 mb-6">
