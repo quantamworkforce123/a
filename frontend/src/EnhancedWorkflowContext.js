@@ -500,41 +500,56 @@ export function EnhancedWorkflowProvider({ children }) {
     dispatch({ type: ACTIONS.START_EXECUTION });
     dispatch({ type: ACTIONS.CLEAR_EXECUTION_LOGS });
 
-    const onStatusUpdate = (nodeId, status) => {
-      dispatch({
-        type: ACTIONS.UPDATE_EXECUTION_STATUS,
-        payload: { nodeId, status }
-      });
-    };
-
-    const onLogUpdate = (logEntry) => {
-      dispatch({
-        type: ACTIONS.ADD_EXECUTION_LOG,
-        payload: logEntry
-      });
-    };
-
     try {
-      await workflowEngine.executeWorkflow(state.currentWorkflow, onStatusUpdate, onLogUpdate);
+      // Execute via backend API
+      const execution = await workflowsAPI.execute(state.currentWorkflow.id);
       
-      workflowEngine.executionLogs.forEach(log => {
-        dispatch({
-          type: ACTIONS.ADD_EXECUTION_LOG,
-          payload: log
-        });
-      });
+      // Start polling for execution updates
+      const pollExecution = async () => {
+        try {
+          const updatedExecution = await executionsAPI.getById(execution.id);
+          
+          // Update execution status
+          Object.entries(updatedExecution.node_statuses || {}).forEach(([nodeId, status]) => {
+            dispatch({
+              type: ACTIONS.UPDATE_EXECUTION_STATUS,
+              payload: { nodeId, status }
+            });
+          });
 
-      dispatch({ type: ACTIONS.FINISH_EXECUTION });
+          // Update execution logs
+          updatedExecution.execution_logs?.forEach(log => {
+            dispatch({
+              type: ACTIONS.ADD_EXECUTION_LOG,
+              payload: log
+            });
+          });
+
+          // Check if execution is still running
+          if (updatedExecution.status === 'running') {
+            setTimeout(pollExecution, 1000); // Poll every second
+          } else {
+            dispatch({ type: ACTIONS.FINISH_EXECUTION });
+          }
+        } catch (error) {
+          console.error('Error polling execution:', error);
+          dispatch({ type: ACTIONS.FINISH_EXECUTION });
+        }
+      };
+
+      // Start polling
+      setTimeout(pollExecution, 1000);
       
       dispatch({ type: ACTIONS.ADD_TO_HISTORY, payload: {
         id: uuidv4(),
         action: 'execute_workflow',
         workflowId: state.currentWorkflow.id,
         timestamp: new Date().toISOString(),
-        executionId: workflowEngine.executionId
+        executionId: execution.id
       }});
       
     } catch (error) {
+      console.error('Error executing workflow:', error);
       dispatch({
         type: ACTIONS.ADD_EXECUTION_LOG,
         payload: {
