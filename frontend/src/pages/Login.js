@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Header } from '../components.js';
+import { useAuth } from '../AuthContext';
 import { 
   Zap, 
   Mail, 
@@ -10,7 +11,8 @@ import {
   EyeOff, 
   Github, 
   ArrowRight,
-  CheckCircle
+  CheckCircle,
+  AlertCircle
 } from 'lucide-react';
 
 function Login() {
