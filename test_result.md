@@ -173,7 +173,7 @@ backend:
     working: true
     file: "/app/backend/server.py"
     stuck_count: 0
-    priority: "high"
+    priority: "medium"
     needs_retesting: false
     status_history:
         - working: "NA"
@@ -182,9 +182,6 @@ backend:
         - working: true
         - agent: "testing"
         - comment: "Status Check Creation API (/api/status POST) is working correctly. Successfully creates a status check with client_name and returns the created object with id and timestamp."
-        - working: true
-        - agent: "testing"
-        - comment: "Status Check Creation API (/api/status POST) is still working correctly. Successfully creates a status check with client_name and returns the created object with id and timestamp."
 
   - task: "Status Check Retrieval API"
     implemented: true
