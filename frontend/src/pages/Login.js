@@ -45,17 +45,101 @@ function Login() {
   };
 
   const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+    
+    // Clear specific field error when user starts typing
+    if (formErrors[name]) {
+      setFormErrors({
+        ...formErrors,
+        [name]: ''
+      });
+    }
+    
+    // Clear global error
+    if (error) {
+      clearError();
+    }
   };
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    const errors = {};
+    
+    if (!formData.email) {
+      errors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = 'Email is invalid';
+    }
+    
+    if (!formData.password) {
+      errors.password = 'Password is required';
+    } else if (formData.password.length < 6) {
+      errors.password = 'Password must be at least 6 characters';
+    }
+    
+    if (!isLogin) {
+      if (!formData.name) {
+        errors.name = 'Name is required';
+      }
+      
+      if (!formData.confirmPassword) {
+        errors.confirmPassword = 'Please confirm your password';
+      } else if (formData.password !== formData.confirmPassword) {
+        errors.confirmPassword = 'Passwords do not match';
+      }
+    }
+    
+    return errors;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Mock authentication - in real app, this would make an API call
-    console.log('Form submitted:', formData);
-    navigate('/dashboard');
+    
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    try {
+      if (isLogin) {
+        await login({
+          email: formData.email,
+          password: formData.password
+        });
+      } else {
+        await register({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password
+        });
+      }
+      
+      setShowSuccess(true);
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1500);
+    } catch (error) {
+      console.error('Authentication error:', error);
+      // Error is already handled by the auth context
+    }
+  };
+
+  const handleModeSwitch = () => {
+    setIsLogin(!isLogin);
+    setFormErrors({});
+    setFormData({
+      email: '',
+      password: '',
+      confirmPassword: '',
+      name: ''
+    });
+    if (error) {
+      clearError();
+    }
   };
 
   const features = [
