@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Header, WorkflowCard, CreateWorkflowModal } from '../components.js';
 import { useEnhancedWorkflow } from '../EnhancedWorkflowContext';
+import { useAuth } from '../AuthContext';
 import { 
   Plus, 
   Search, 
