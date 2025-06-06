@@ -331,11 +331,11 @@ export function RealWorkflowCanvas({
         {isConnecting && connectionStart && tempConnectionEnd && (
           <path
             d={`M ${workflow.nodes.find(n => n.id === connectionStart.nodeId)?.position.x + 200} ${workflow.nodes.find(n => n.id === connectionStart.nodeId)?.position.y + 40} L ${tempConnectionEnd.x} ${tempConnectionEnd.y}`}
-            stroke="#FF7F4D"
+            stroke="#ee6447"
             strokeWidth="2"
             strokeDasharray="5,5"
             fill="none"
-            className="opacity-70"
+            className="opacity-70 connection-animated"
           />
         )}
       </svg>
