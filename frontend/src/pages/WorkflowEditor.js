@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { 
   ExecutionLogs, 
   Header 
-} from '../components';
+} from '../components.js';
 import { EnhancedSidebar } from '../components/AdvancedComponents';
 import { RealWorkflowCanvas } from '../components/RealWorkflowCanvas';
 import { RealPropertiesPanel } from '../components/RealPropertiesPanel';
