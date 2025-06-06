@@ -509,7 +509,7 @@ export function RealWorkflowCanvas({
       )}
 
       {/* Zoom indicator */}
-      <div className="absolute bottom-4 right-4 bg-gray-800 border border-gray-600 rounded-lg px-3 py-1 text-sm text-gray-300">
+      <div className="glass-card bg-gray-800/70 backdrop-blur border border-secondary-600 rounded-lg px-3 py-1 text-sm text-secondary-300">
         {Math.round(canvasZoom * 100)}%
       </div>
     </div>
