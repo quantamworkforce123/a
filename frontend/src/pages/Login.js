@@ -17,6 +17,7 @@ import {
 
 function Login() {
   const navigate = useNavigate();
+  const { login, register, error, isLoading, clearError } = useAuth();
   const [currentPage, setCurrentPage] = useState('login');
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -26,6 +27,8 @@ function Login() {
     confirmPassword: '',
     name: ''
   });
+  const [formErrors, setFormErrors] = useState({});
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleNavigate = (page) => {
     setCurrentPage(page);
