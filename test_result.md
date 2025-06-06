@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the complete N8N workflow automation clone that I just built."
+user_problem_statement: "Implement all and make it a production grade website where each component auth, nodes, integrations, workflow and everything is working fully end to end for the N8N workflow automation clone."
 
 backend:
   - task: "Root API Endpoint"
@@ -115,13 +115,10 @@ backend:
     status_history:
         - working: "NA"
         - agent: "testing"
-        - comment: "Initial testing of the root endpoint (/api/)"
+        - comment: "Initial testing of the root API endpoint (/api/)"
         - working: true
         - agent: "testing"
         - comment: "Root API endpoint (/api/) is working correctly. Returns 'Hello World' message with 200 status code."
-        - working: true
-        - agent: "testing"
-        - comment: "Root API endpoint (/api/) is working correctly. Returns 'Quantamworkforce API v1.0.0' message with 200 status code."
 
   - task: "Health Check API"
     implemented: true
