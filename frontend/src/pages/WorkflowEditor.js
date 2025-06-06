@@ -35,6 +35,7 @@ import {
 function WorkflowEditor() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const {
     workflows,
     currentWorkflow,
