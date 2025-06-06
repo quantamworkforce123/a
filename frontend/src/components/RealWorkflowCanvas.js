@@ -350,7 +350,7 @@ export function RealWorkflowCanvas({
       >
         {workflow.nodes.map((node) => {
           const nodeStatus = executionStatus[node.id];
-          const definition = ALL_N8N_NODES[node.type];
+          const definition = ALL_NODES[node.type];
           const isSelected = selectedNode === node.id;
           
           return (
