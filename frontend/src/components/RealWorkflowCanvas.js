@@ -464,7 +464,7 @@ export function RealWorkflowCanvas({
       <div className="absolute top-4 right-4 flex flex-col space-y-2 z-20">
         <motion.button
           onClick={() => setCanvasZoom(prev => Math.min(prev * 1.2, 3))}
-          className="w-10 h-10 bg-gray-800 border border-gray-600 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:border-gray-500 transition-colors"
+          className="w-10 h-10 glass-card bg-gray-800/70 backdrop-blur border border-secondary-600 rounded-lg flex items-center justify-center text-secondary-400 hover:text-white hover:border-secondary-500 transition-all duration-300 btn-3d"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           title="Zoom In"
@@ -474,7 +474,7 @@ export function RealWorkflowCanvas({
         
         <motion.button
           onClick={() => setCanvasZoom(prev => Math.max(prev / 1.2, 0.1))}
-          className="w-10 h-10 bg-gray-800 border border-gray-600 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:border-gray-500 transition-colors"
+          className="w-10 h-10 glass-card bg-gray-800/70 backdrop-blur border border-secondary-600 rounded-lg flex items-center justify-center text-secondary-400 hover:text-white hover:border-secondary-500 transition-all duration-300 btn-3d"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           title="Zoom Out"
@@ -487,7 +487,7 @@ export function RealWorkflowCanvas({
             setCanvasZoom(1);
             setPanOffset({ x: 0, y: 0 });
           }}
-          className="w-10 h-10 bg-gray-800 border border-gray-600 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:border-gray-500 transition-colors"
+          className="w-10 h-10 glass-card bg-gray-800/70 backdrop-blur border border-secondary-600 rounded-lg flex items-center justify-center text-secondary-400 hover:text-white hover:border-secondary-500 transition-all duration-300 btn-3d"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           title="Reset View"
