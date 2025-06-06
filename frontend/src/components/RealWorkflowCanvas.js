@@ -498,8 +498,8 @@ export function RealWorkflowCanvas({
 
       {/* Connection Instructions */}
       {isConnecting && (
-        <div className="absolute top-4 left-4 bg-gray-800 border border-orange-500 rounded-lg p-3 z-20">
-          <p className="text-orange-400 text-sm font-medium">
+        <div className="glass-card bg-gray-800/80 backdrop-blur border border-primary-500 rounded-lg p-3 z-20">
+          <p className="text-primary-400 text-sm font-medium">
             Click on an input connector to create connection
           </p>
           <p className="text-gray-400 text-xs mt-1">
