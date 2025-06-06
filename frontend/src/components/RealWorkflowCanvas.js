@@ -265,7 +265,7 @@ export function RealWorkflowCanvas({
             refX="10"
             refY="3.5"
             orient="auto"
-            fill="#FF7F4D"
+            fill="#ee6447"
           >
             <polygon points="0 0, 10 3.5, 0 7" />
           </marker>
@@ -276,7 +276,7 @@ export function RealWorkflowCanvas({
             refX="10"
             refY="3.5"
             orient="auto"
-            fill="#3B82F6"
+            fill="#626eff"
           >
             <polygon points="0 0, 10 3.5, 0 7" />
           </marker>
