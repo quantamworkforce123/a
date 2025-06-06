@@ -407,11 +407,11 @@ export function RealWorkflowCanvas({
                   {Array.from({ length: definition.inputs }).map((_, index) => (
                     <div 
                       key={`input-${index}`}
-                      className="w-6 h-6 bg-gray-600 border-2 border-gray-400 rounded-full cursor-pointer hover:bg-orange-500 hover:border-orange-400 transition-colors flex items-center justify-center"
+                      className="w-6 h-6 glass-card bg-gray-600/50 backdrop-blur border-2 border-secondary-400 rounded-full cursor-pointer hover:bg-primary-500 hover:border-primary-400 transition-all duration-300 flex items-center justify-center micro-bounce"
                       onClick={(e) => handleConnectionEnd(node.id, index, e)}
                       title={`Input ${index + 1}`}
                     >
-                      <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
+                      <div className="w-2 h-2 bg-secondary-300 rounded-full"></div>
                     </div>
                   ))}
                 </div>
