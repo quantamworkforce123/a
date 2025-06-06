@@ -423,13 +423,13 @@ export function RealWorkflowCanvas({
                   {Array.from({ length: definition.outputs }).map((_, index) => (
                     <div 
                       key={`output-${index}`}
-                      className={`w-6 h-6 bg-gray-600 border-2 border-gray-400 rounded-full cursor-pointer hover:bg-orange-500 hover:border-orange-400 transition-colors flex items-center justify-center ${
-                        isConnecting && connectionStart?.nodeId === node.id && connectionStart?.outputIndex === index ? 'bg-orange-500 border-orange-400' : ''
+                      className={`w-6 h-6 glass-card bg-gray-600/50 backdrop-blur border-2 border-primary-400 rounded-full cursor-pointer hover:bg-primary-500 hover:border-primary-400 transition-all duration-300 flex items-center justify-center micro-bounce ${
+                        isConnecting && connectionStart?.nodeId === node.id && connectionStart?.outputIndex === index ? 'bg-primary-500 border-primary-400 pulse-glow' : ''
                       }`}
                       onClick={(e) => handleConnectionStart(node.id, index, e)}
                       title={`Output ${index + 1}`}
                     >
-                      <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
+                      <div className="w-2 h-2 bg-primary-300 rounded-full"></div>
                     </div>
                   ))}
                 </div>
