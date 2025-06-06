@@ -575,14 +575,20 @@ export function EnhancedWorkflowProvider({ children }) {
     dispatch({ type: ACTIONS.SET_LOADING, payload: true });
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const savedWorkflow = await workflowsAPI.update(state.currentWorkflow.id, {
+        name: state.currentWorkflow.name,
+        description: state.currentWorkflow.description,
+        nodes: state.currentWorkflow.nodes,
+        connections: state.currentWorkflow.connections,
+        is_active: state.currentWorkflow.isActive
+      });
       
       dispatch({ type: ACTIONS.SAVE_WORKFLOW });
       dispatch({ type: ACTIONS.SET_LOADING, payload: false });
       
       return { success: true, message: 'Workflow saved successfully' };
     } catch (error) {
+      console.error('Error saving workflow:', error);
       dispatch({ type: ACTIONS.SET_ERROR, payload: error.message });
       throw error;
     }
