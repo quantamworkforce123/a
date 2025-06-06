@@ -1,7 +1,26 @@
 // Additional 1500+ N8N Nodes - Comprehensive Integration System
 // Expanding the node library to reach 2000+ nodes
 
-import { createNodeDefinition } from './Complete2000N8NNodes';
+// Helper function to create node definitions
+const createNodeDefinition = (config) => ({
+  displayName: config.displayName,
+  name: config.name,
+  group: config.group || ['input'],
+  version: config.version || 1,
+  description: config.description,
+  defaults: {
+    name: config.displayName,
+    color: config.color || '#666666',
+  },
+  inputs: config.inputs || ['main'],
+  outputs: config.outputs || ['main'],
+  outputNames: config.outputNames,
+  properties: config.properties || [],
+  credentials: config.credentials || [],
+  icon: config.icon || 'fa:cube',
+  subtitle: config.subtitle,
+  ...config.additional
+});
 
 // =============================================================================
 // E-COMMERCE NODES (Shopify, WooCommerce, Stripe, PayPal)
