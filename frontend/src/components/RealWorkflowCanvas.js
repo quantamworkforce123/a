@@ -156,12 +156,12 @@ export function RealWorkflowCanvas({
   };
 
   const getNodeIcon = (nodeType) => {
-    const definition = ALL_N8N_NODES[nodeType];
+    const definition = ALL_NODES[nodeType];
     return definition?.icon || '⚡';
   };
 
   const getNodeColor = (nodeType) => {
-    const definition = ALL_N8N_NODES[nodeType];
+    const definition = ALL_NODES[nodeType];
     return definition?.color || '#666666';
   };
 
