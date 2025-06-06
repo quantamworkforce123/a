@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer, useCallback, useEffect } from 'react';
+import { authAPI, setAuthToken, clearAuth } from './services/api';
 
 const AuthContext = createContext();
 
@@ -41,7 +42,7 @@ function authReducer(state, action) {
         ...state,
         isAuthenticated: true,
         user: action.payload.user,
-        token: action.payload.token,
+        token: action.payload.access_token,
         isLoading: false,
         error: null
       };
@@ -87,60 +88,6 @@ function authReducer(state, action) {
   }
 }
 
-// Mock authentication functions (replace with real API calls)
-const mockApiCall = (endpoint, data) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (endpoint === 'login') {
-        // Require actual credentials - no auto-login
-        if (data.email === 'admin@quantamworkforce.com' && data.password === 'admin123') {
-          resolve({
-            user: {
-              id: '1',
-              name: 'Admin User',
-              email: data.email,
-              avatar: `https://ui-avatars.com/api/?name=Admin+User&background=ff7f4d&color=ffffff`,
-              role: 'admin',
-              createdAt: new Date().toISOString()
-            },
-            token: 'qw_token_' + Date.now()
-          });
-        } else if (data.email && data.password && data.email.includes('@') && data.password.length >= 6) {
-          resolve({
-            user: {
-              id: Date.now().toString(),
-              name: data.name || data.email.split('@')[0],
-              email: data.email,
-              avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name || data.email.split('@')[0])}&background=ff7f4d&color=ffffff`,
-              role: 'user',
-              createdAt: new Date().toISOString()
-            },
-            token: 'qw_token_' + Date.now()
-          });
-        } else {
-          reject(new Error('Invalid email or password. Please check your credentials.'));
-        }
-      } else if (endpoint === 'register') {
-        if (data.email && data.password && data.name && data.email.includes('@') && data.password.length >= 6) {
-          resolve({
-            user: {
-              id: Date.now().toString(),
-              name: data.name,
-              email: data.email,
-              avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name)}&background=ff7f4d&color=ffffff`,
-              role: 'user',
-              createdAt: new Date().toISOString()
-            },
-            token: 'qw_token_' + Date.now()
-          });
-        } else {
-          reject(new Error('Please provide valid name, email, and password (minimum 6 characters).'));
-        }
-      }
-    }, 1500); // Realistic network delay
-  });
-};
-
 // Provider component
 export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
@@ -153,13 +100,14 @@ export function AuthProvider({ children }) {
     if (token && userData) {
       try {
         const user = JSON.parse(userData);
+        setAuthToken(token);
         dispatch({
           type: ACTIONS.LOAD_USER,
           payload: { user, token }
         });
       } catch (error) {
-        localStorage.removeItem('quantamworkforce_token');
-        localStorage.removeItem('quantamworkforce_user');
+        console.error('Error loading user from localStorage:', error);
+        clearAuth();
         dispatch({ type: ACTIONS.LOGOUT });
       }
     } else {
@@ -171,10 +119,10 @@ export function AuthProvider({ children }) {
     dispatch({ type: ACTIONS.LOGIN_START });
     
     try {
-      const response = await mockApiCall('login', credentials);
+      const response = await authAPI.login(credentials);
       
       // Store in localStorage
-      localStorage.setItem('quantamworkforce_token', response.token);
+      setAuthToken(response.access_token);
       localStorage.setItem('quantamworkforce_user', JSON.stringify(response.user));
       
       dispatch({
@@ -184,11 +132,12 @@ export function AuthProvider({ children }) {
       
       return response;
     } catch (error) {
+      const errorMessage = error.response?.data?.detail || error.message || 'Login failed';
       dispatch({
         type: ACTIONS.LOGIN_FAILURE,
-        payload: error.message
+        payload: errorMessage
       });
-      throw error;
+      throw new Error(errorMessage);
     }
   }, []);
 
@@ -196,10 +145,10 @@ export function AuthProvider({ children }) {
     dispatch({ type: ACTIONS.REGISTER_START });
     
     try {
-      const response = await mockApiCall('register', userData);
+      const response = await authAPI.register(userData);
       
       // Store in localStorage
-      localStorage.setItem('quantamworkforce_token', response.token);
+      setAuthToken(response.access_token);
       localStorage.setItem('quantamworkforce_user', JSON.stringify(response.user));
       
       dispatch({
@@ -209,17 +158,17 @@ export function AuthProvider({ children }) {
       
       return response;
     } catch (error) {
+      const errorMessage = error.response?.data?.detail || error.message || 'Registration failed';
       dispatch({
         type: ACTIONS.REGISTER_FAILURE,
-        payload: error.message
+        payload: errorMessage
       });
-      throw error;
+      throw new Error(errorMessage);
     }
   }, []);
 
   const logout = useCallback(() => {
-    localStorage.removeItem('quantamworkforce_token');
-    localStorage.removeItem('quantamworkforce_user');
+    clearAuth();
     dispatch({ type: ACTIONS.LOGOUT });
   }, []);
 
