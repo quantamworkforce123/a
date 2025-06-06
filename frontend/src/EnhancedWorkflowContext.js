@@ -394,30 +394,54 @@ export function EnhancedWorkflowProvider({ children }) {
     dispatch({ type: ACTIONS.SET_CURRENT_WORKFLOW, payload: workflow });
   }, []);
 
-  const createWorkflow = useCallback((workflowData) => {
+  const createWorkflow = useCallback(async (workflowData) => {
     if (!user) return;
-    dispatch({ type: ACTIONS.CREATE_WORKFLOW, payload: { ...workflowData, userId: user.id } });
+    
+    try {
+      const newWorkflow = await workflowsAPI.create(workflowData);
+      dispatch({ type: ACTIONS.CREATE_WORKFLOW, payload: { ...newWorkflow, userId: user.id } });
+      return newWorkflow;
+    } catch (error) {
+      console.error('Error creating workflow:', error);
+      dispatch({ type: ACTIONS.SET_ERROR, payload: error.message });
+      throw error;
+    }
   }, [user]);
 
-  const updateWorkflow = useCallback((id, updates) => {
-    dispatch({ type: ACTIONS.UPDATE_WORKFLOW, payload: { id, updates } });
-    dispatch({ type: ACTIONS.ADD_TO_HISTORY, payload: {
-      id: uuidv4(),
-      action: 'update_workflow',
-      workflowId: id,
-      timestamp: new Date().toISOString(),
-      changes: updates
-    }});
+  const updateWorkflow = useCallback(async (id, updates) => {
+    try {
+      const updatedWorkflow = await workflowsAPI.update(id, updates);
+      dispatch({ type: ACTIONS.UPDATE_WORKFLOW, payload: { id, updates: updatedWorkflow } });
+      dispatch({ type: ACTIONS.ADD_TO_HISTORY, payload: {
+        id: uuidv4(),
+        action: 'update_workflow',
+        workflowId: id,
+        timestamp: new Date().toISOString(),
+        changes: updates
+      }});
+      return updatedWorkflow;
+    } catch (error) {
+      console.error('Error updating workflow:', error);
+      dispatch({ type: ACTIONS.SET_ERROR, payload: error.message });
+      throw error;
+    }
   }, []);
 
-  const deleteWorkflow = useCallback((id) => {
-    dispatch({ type: ACTIONS.DELETE_WORKFLOW, payload: id });
-    dispatch({ type: ACTIONS.ADD_TO_HISTORY, payload: {
-      id: uuidv4(),
-      action: 'delete_workflow',
-      workflowId: id,
-      timestamp: new Date().toISOString()
-    }});
+  const deleteWorkflow = useCallback(async (id) => {
+    try {
+      await workflowsAPI.delete(id);
+      dispatch({ type: ACTIONS.DELETE_WORKFLOW, payload: id });
+      dispatch({ type: ACTIONS.ADD_TO_HISTORY, payload: {
+        id: uuidv4(),
+        action: 'delete_workflow',
+        workflowId: id,
+        timestamp: new Date().toISOString()
+      }});
+    } catch (error) {
+      console.error('Error deleting workflow:', error);
+      dispatch({ type: ACTIONS.SET_ERROR, payload: error.message });
+      throw error;
+    }
   }, []);
 
   const duplicateWorkflow = useCallback((id) => {
