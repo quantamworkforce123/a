@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { WorkflowEngine } from './WorkflowEngine';
 import { createCompleteNodeInstance } from './CompleteN8NNodes';
 import { useAuth } from './AuthContext';
+import { workflowsAPI, executionsAPI } from './services/api';
 
 const WorkflowContext = createContext();
 
